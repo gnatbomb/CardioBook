@@ -4,7 +4,7 @@ package ca.ualberta.nbombard.nbombard_cardiobook;
  * Superclass for date, time, and comment.
  * Provides getters and setters for these objects.
  * Written by Nicholas Bombardieri on 2019/02/02
- * @author nichbomb
+ * @author Nicholas Bombardieri
  *
  */
 

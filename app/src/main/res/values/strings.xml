@@ -16,4 +16,7 @@
     <string name="saveButtonText">Save Measurement</string>
     <string name="saveEditsButtonText">Save edits</string>
     <string name="deleteButtonText">Delete</string>
+    <string name="measurementsField">Measurements</string>
+    <string name="viewMeasurement">View/edit measurement</string>
+    <string name="recordMeasurement">Enter new measurement</string>
 </resources>

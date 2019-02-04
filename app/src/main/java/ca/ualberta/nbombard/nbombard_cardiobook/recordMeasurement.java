@@ -23,28 +23,38 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Reads in information for a new reading.
+ * @author Nicholas Bombadieri
+ * written on 2019/02/04
+ */
+
 public class recordMeasurement extends AppCompatActivity {
 
-    Button saveButton;
-    String date;
-    String time;
-    String comment;
-    String sysReading;
-    int sysValue;
-    String diaReading;
-    int diaValue;
-    String hrReading;
-    int hrValue;
-    EditText dateText;
-    EditText timeText;
-    EditText sysText;
-    EditText diaText;
-    EditText hrText;
-    EditText commentText;
-    boolean badInput;
+    private Button saveButton;
+    private String date;
+    private String time;
+    private String comment;
+    private String sysReading;
+    private int sysValue;
+    private String diaReading;
+    private int diaValue;
+    private String hrReading;
+    private int hrValue;
+    private EditText dateText;
+    private EditText timeText;
+    private EditText sysText;
+    private EditText diaText;
+    private EditText hrText;
+    private EditText commentText;
+    private boolean badInput;
     private List<Measurement> measurementsList;
 
 
+    /**
+     * Grabs the references for the textFields and button.
+     * @param savedInstanceState, lets me save.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +73,10 @@ public class recordMeasurement extends AppCompatActivity {
         hrText = findViewById(R.id.hrField);
         commentText = findViewById(R.id.commentField);
     }
+
+    /**
+     * Checks the validity of inputs. Tells the user what to fix if they have invalid inputs.
+     */
 
     public void checkAndSubmit(){
         badInput = false;
@@ -118,12 +132,21 @@ public class recordMeasurement extends AppCompatActivity {
         }
     }
 
+    /**
+     * helper function. Helps display the invalid input that the user needs to fix.
+     * @param toastString, information about what to fix.
+     */
     public void toastIt(String toastString){
         Toast.makeText(getApplicationContext(),
                 toastString,
                 Toast.LENGTH_SHORT).show();
     }
 
+
+    /**
+     * Saves the new measurement to the file.
+     * @param measurement, the new measurement to be saved to the savefile.
+     */
     public void saveToFile(Measurement measurement){
          String FILENAME = "file.sav";
          Gson gson = new Gson();
@@ -155,7 +178,9 @@ public class recordMeasurement extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Creates the measurement object, calls the save function, and returns to the main activity.
+     */
 
     public void saveAndSubmit(){
         Measurement measurement = new Measurement(date, time, sysValue, diaValue, hrValue,

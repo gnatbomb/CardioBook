@@ -16,17 +16,42 @@ import android.widget.Toast;
 
 import java.util.List;
 
+/**
+ * My custom RecyclerViewAdapter.
+ * This helps keep track of displaying all of the measurements.
+ * The measurement information is kept in a cardview, so that it would be easier to display.
+ *
+ * @author Nicholas Bombardieri
+ * written on 2019/02/04
+ * I referenced https://www.youtube.com/watch?v=ZXoGG2XTjzU&t=640s
+ *      "RecyclerView OnClickListener to New Activity" by CodingWithMitch.
+ *       Uploaded on 2018/01/02. Accessed on 2019/02/04.
+ */
+
 public class MeasurementAdapter extends
         RecyclerView.Adapter<MeasurementAdapter.MeasurementViewHolder>{
 
     private Context context;
     private List<Measurement> measurementList;
 
+    /**
+     * Constructor function for my adapter.
+     * @param context, the context of the activity that this will be displayed in.
+     * @param measurementList, the list of measurments.
+     */
+
     public MeasurementAdapter(Context context, List<Measurement> measurementList) {
         this.context = context;
         this.measurementList = measurementList;
     }
 
+
+    /**
+     * Inflates my list_layout for a card.
+     * @param viewGroup
+     * @param i
+     * @return returns the layout for the card.
+     */
     @NonNull
     @Override
     public MeasurementViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -36,6 +61,12 @@ public class MeasurementAdapter extends
         return holder;
     }
 
+
+    /**
+     * Grabs data from measurement and puts it into it's respective card.
+     * @param measurementViewHolder, the card being worked on.
+     * @param i, the index of the current measurement in the measurement list.
+     */
     @Override
     public void onBindViewHolder(@NonNull final MeasurementViewHolder measurementViewHolder, final int i) {
         Measurement measurement = measurementList.get(i);
@@ -64,11 +95,21 @@ public class MeasurementAdapter extends
 
     }
 
+
+    /**
+     * returns the size of the list for drawing purposes
+     * @return, the size of measurementList.
+     */
     @Override
     public int getItemCount() {
         return measurementList.size();
     }
 
+
+    /**
+     * the class for the RecyclerViewHolder. This is the section with the cards which hold the
+     *          information.
+     */
     class MeasurementViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
@@ -78,6 +119,11 @@ public class MeasurementAdapter extends
         TextView textViewHRValue;
         ConstraintLayout parentLayout;
         int id;
+
+        /**
+         * constructor for the cards. Grabs the references to the appropriate textView fields.
+         * @param itemView, the card information.
+         */
 
         public MeasurementViewHolder(@NonNull View itemView) {
             super(itemView);

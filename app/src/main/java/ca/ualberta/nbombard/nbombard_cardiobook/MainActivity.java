@@ -22,6 +22,16 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * MainActivity displays the list of measurements and gives the option to make a new measurement
+ * @author Nicholas Bombardieri
+ * written on 219/02/04
+ *
+ * Implements a RecyclerView to display the measurements. Help retreived from:
+ *          https://developer.android.com/guide/topics/ui/layout/recyclerview on 2019/02/04
+ *
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String FILENAME = "file.sav";
@@ -35,7 +45,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private Button newMeasure;
 
-
+    /**
+     * onCreate sets up the recyclerview and the button which takes you to the
+     *      RecordMeasurement activity. It also loads the data from the savefile.
+     * @param savedInstanceState, allows for the saving of information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * takes the user to the recordMeasurement activity
+     */
     public void openRecordMeasurement(){
         Intent intent = new Intent(this, recordMeasurement.class);
         startActivity(intent);
@@ -70,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * loads the data from the file object. I reused some of the code here from lab 2.
+     * loads the data from the file object. I reused some of the code from lab 2.
      */
     private void loadFile() {
         try {
@@ -86,19 +104,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Saves the set of measurements into the file.
-     */
-    private void saveFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME, 0);
-            OutputStreamWriter writer = new OutputStreamWriter(fos);
-
-            gson.toJson(measurementsList, writer);
-            writer.flush();
-            fos.close();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-    }
 }

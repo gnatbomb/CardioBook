@@ -21,33 +21,44 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Expands when a card is tapped on. This displays more information on a measurement, and allows
+ *      the user to edit an existing measurement, as well as the option to delete a measurement.
+ *
+ * @author Nicholas Bombardieri
+ * written on 2019/02/04
+ */
+
 public class viewMeasurement extends AppCompatActivity {
-    EditText dateField;
-    EditText timeField;
-    EditText sysPresField;
-    EditText diaPresField;
-    EditText hrField;
-    EditText commentField;
-    ArrayList<Measurement> measurementsList;
-    Measurement measurement;
-    String FILENAME = "file.sav";
-    int measurementIndex;
+    private EditText dateField;
+    private EditText timeField;
+    private EditText sysPresField;
+    private EditText diaPresField;
+    private EditText hrField;
+    private EditText commentField;
+    private ArrayList<Measurement> measurementsList;
+    private Measurement measurement;
+    private String FILENAME = "file.sav";
+    private int measurementIndex;
 
-    boolean badInput;
-    String date;
-    String time;
-    String sysReading;
-    int sysValue;
-    String diaReading;
-    int diaValue;
-    String hrReading;
-    int hrValue;
-    String comment;
-    Button saveButton;
-    Button deleteButton;
+    private boolean badInput;
+    private String date;
+    private String time;
+    private String sysReading;
+    private int sysValue;
+    private String diaReading;
+    private int diaValue;
+    private String hrReading;
+    private int hrValue;
+    private String comment;
+    private Button saveButton;
+    private Button deleteButton;
 
 
-
+    /**
+     * initializes data. Calls getIncomingIntent() to get data to fill the textFields.
+     * @param savedInstanceState, lets me save information.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,16 +84,13 @@ public class viewMeasurement extends AppCompatActivity {
         diaPresField = findViewById(R.id.diaPresField);
         hrField = findViewById(R.id.hrField);
         commentField = findViewById(R.id.commentField);
-
-
-
-
-
-
         getIncomingIntent();
 
     }
 
+    /**
+     * Grabs the index of the measurement we want more information about.
+     */
     private void getIncomingIntent(){
         if (getIntent().hasExtra("measurementId")){
             measurementIndex = getIntent().getIntExtra("measurementId", 0);
@@ -90,8 +98,11 @@ public class viewMeasurement extends AppCompatActivity {
         }
     }
 
+    /**
+     * grabs the measurement at index i.
+     * @param i, index of the measurement we want.
+     */
     public void loadValue(int i){
-
         Gson gson = new Gson();
         try {
             FileInputStream fis = openFileInput(FILENAME);
@@ -114,6 +125,9 @@ public class viewMeasurement extends AppCompatActivity {
         commentField.setText(measurement.getComment());
     }
 
+    /**
+     * removes the measurement from the measurement list and saves to file.
+     */
     public void deleteMeasurement(){
         measurementsList.remove(measurementIndex);
         Gson gson = new Gson();
@@ -138,6 +152,10 @@ public class viewMeasurement extends AppCompatActivity {
     }
 
 
+    /**
+     * Checks validity of inputs. Gives the user a message if it is invalid, or saves the
+     *      data to the file if the inputs look good.
+     */
     public void checkAndSubmit(){
         badInput = false;
         date = dateField.getText().toString().trim();
@@ -194,15 +212,24 @@ public class viewMeasurement extends AppCompatActivity {
     }
 
 
+    /**
+     * helper function which makes it much quicker to give the user information on what invalid
+     *      inputs they need to fix.
+     * @param toastString, the error message we want to display.
+     */
     public void toastIt(String toastString){
         Toast.makeText(getApplicationContext(),
                 toastString,
                 Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * saves the changes to the measurement, then saves that to the savefile.
+     */
+
     public void saveToFile(){
         measurementsList.remove(measurementIndex);
-        measurementsList.add(measurement);
+        measurementsList.add(measurementIndex, measurement);
         Gson gson = new Gson();
         File dir = getFilesDir();
         File file = new File(dir, FILENAME);
@@ -221,6 +248,9 @@ public class viewMeasurement extends AppCompatActivity {
     }
 
 
+    /**
+     * Goes back to the main activity and calls the save function.
+     */
 
     public void saveAndSubmit(){
         Intent intent = new Intent(this, MainActivity.class);

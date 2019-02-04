@@ -12,12 +12,14 @@ public class MeasurementContext {
     private String value;
 
     MeasurementContext(String v){
-        this.value = v;
+        if (v.length() < 1){
+            this.value = " ";
+        }
+        else {
+            this.value = v;
+        }
     }
 
-    MeasurementContext(){
-        this.value = "";
-    }
 
     public String getValue(){
         return this.value;

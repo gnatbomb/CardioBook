@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">nbombard-CardioBook</string>
+    <string name="addButtonText">New Reading</string>
+    <string name="dateText">Date measured:</string>
+    <string name="dateHint">yyyy/mm/dd</string>
+    <string name="timeText">Time measured:</string>
+    <string name="timeHint">hh:mm</string>
+    <string name="sysPresText">Systolic Pressure:</string>
+    <string name="sysPresHint">eg: 110</string>
+    <string name="diaPresText">Diastolic Pressure: </string>
+    <string name="diaPresHint">eg: 80</string>
+    <string name="hrText">Heart-Rate:</string>
+    <string name="hrHint">eg: 90</string>
+    <string name="commentText">Comments:</string>
+    <string name="commentHint">Optional. Max 20 chars.</string>
+    <string name="saveButtonText">Save Measurement</string>
+    <string name="saveEditsButtonText">Save edits</string>
+    <string name="deleteButtonText">Delete</string>
 </resources>

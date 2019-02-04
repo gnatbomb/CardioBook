@@ -2,7 +2,9 @@ package ca.ualberta.nbombard.nbombard_cardiobook;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -19,16 +21,26 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
+    //vars
+    private ArrayList<String> mMeasurementTexts;
+    private ArrayList<String> mFlags;
+
     private static final String FILENAME = "file.sav";
-    private RecyclerView MeasurementList;
     private Gson gson = new Gson();
-    private ArrayList input;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    private void initRecyclerView(){
+        Log.d(TAG, "initRecyclerView: ");
+        //RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        //RecyclerViewAdapter adapter = new RecyclerViewAdapter();
     }
 
 
@@ -41,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 
             Type listType = new TypeToken<ArrayList<Measurement>>() {}.getType();
-            input = gson.fromJson(in, listType);
+            myDataset = gson.fromJson(in, listType);
         } catch (FileNotFoundException e) {
-            input = new ArrayList<Measurement>();
+            myDataset = new ArrayList<Measurement>();
         } catch (Exception e) {
             throw new RuntimeException();
         }
@@ -57,11 +69,16 @@ public class MainActivity extends AppCompatActivity {
             FileOutputStream fos = openFileOutput(FILENAME, 0);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
 
-            gson.toJson(input, writer);
+            gson.toJson(myDataset, writer);
             writer.flush();
             fos.close();
         } catch (Exception e) {
             throw new RuntimeException();
         }
+    }
+
+    private void updateMeasurementListView(){
+        loadFile();
+
     }
 }
